@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debugging Frontend JavaScript: A Modern, Zero-Dependency Approach</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            background-color: #f9f9f9;
+        }
+        h1, h2, h3 {
+            color: #222;
+            line-height: 1.2;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 2rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            margin-top: 1.5rem;
+        }
+        code {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+            background-color: #eee;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+        }
+        pre {
+            background-color: #eee;
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 0.5rem;
+            border-left: 4px solid #ffc107;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Debugging Frontend JavaScript: A Modern, Zero-Dependency Approach</h1>
+    <p>As frontend applications grow in complexity, effective debugging becomes paramount. While `console.log` is a developer's best friend, it can quickly lead to a messy, unmanageable console output. The popular `debug` library for Node.js offers a fantastic solution with its namespace-based logging, but what about the browser?</p>
+
+    <p>Enter <strong>debug-frontend</strong> – a lightweight, zero-dependency JavaScript library designed to bring the power of namespaced debugging to your browser-based projects, with a focus on security, performance, and developer experience.</p>
+
+    <h2>Why debug-frontend?</h2>
+    <p>Many existing debugging solutions either come with heavy dependencies, larger bundle sizes, or lack the intuitive control mechanisms developers need. `debug-frontend` addresses these challenges head-on:</p>
+
+    <ul>
+        <li><strong>Zero-Dependency:</strong> Built with pure JavaScript, it adds no external libraries to your project. This means a tiny footprint and, crucially, no third-party vulnerabilities to worry about.</li>
+        <li><strong>Minimal Bundle Size:</strong> At around 12KB (minified) and as low as 4KB (gzipped), it's incredibly lightweight, ensuring your application's load times remain unaffected.</li>
+        <li><strong>Namespace-Based Logging:</strong> Organize your logs by feature, component, or module. Enable only what you need, when you need it.</li>
+        <li><strong>Automatic Console Overriding:</strong> Seamlessly integrates with your existing `console.log`, `console.info`, etc., automatically routing them through `debug-frontend`'s namespacing system.</li>
+        <li><strong>Interactive Runtime UI:</strong> A built-in, accessible UI allows you to enable/disable debug namespaces on the fly directly in your browser, without touching code or `localStorage` manually.</li>
+        <li><strong>Color-Coded Output:</strong> Logs are automatically colored by namespace, making it easier to distinguish different types of output at a glance.</li>
+    </ul>
+
+    <h2>Getting Started</h2>
+    <p>Installation is straightforward via npm:</p>
+    <pre><code>npm install debug-frontend</code></pre>
+
+    <h3>Basic Usage (ES Module)</h3>
+    <p>Import `debug` and start logging:</p>
+    <pre><code>import debug from 'debug-frontend';
+
+const log = debug('app:main');
+const dataLog = debug('app:data');
+
+log('Application started.');
+dataLog('Fetched user data:', { id: 1, name: 'Alice' });
+</code></pre>
+
+    <h3>Controlling Your Logs at Runtime</h3>
+    <p>This is where `debug-frontend` truly shines. You have two primary ways to control log visibility:</p>
+    <ol>
+        <li><strong>`localStorage` (for persistent settings):</strong>
+            <pre><code>localStorage.debug = 'app:*'; // Enable all 'app' related logs
+localStorage.debug = 'app:main,-app:data'; // Enable app:main, disable app:data
+</code></pre>
+        </li>
+        <li><strong>Interactive UI (for quick toggling):</strong>
+            <p>Simply press <code>Shift + D + Enter</code> in your browser. A modal will appear, allowing you to visually select and toggle namespaces. This is incredibly powerful for live debugging sessions.</p>
+            <p>You can also programmatically open this UI by calling `console.configure()`.</p>
+        </li>
+    </ol>
+
+    <h2>Advanced Debugging Patterns</h2>
+
+    <h3>Creating Namespaced Consoles with `replicate()`</h3>
+    <p>For component-specific logging, `console.replicate()` provides a dedicated console instance:</p>
+    <pre><code>const componentConsole = console.replicate('MyComponent');
+componentConsole.log('Initializing component...');
+componentConsole.warn('Component received invalid prop:', propValue);
+// Logs will appear as 'app:MyComponent:log', 'app:MyComponent:warn' etc.
+</code></pre>
+
+    <h3>Reverting Console Override</h3>
+    <p>If you ever need to restore the browser's native `console` object, `debug-frontend` offers a simple method:</p>
+    <pre><code>debug.revertConsoleOverride();
+console.log('This message now bypasses debug-frontend.');
+</code></pre>
+
+    <h2>Conclusion</h2>
+    <p><strong>debug-frontend</strong> offers a robust, secure, and incredibly convenient solution for debugging your JavaScript applications in the browser. Its zero-dependency nature, tiny footprint, and powerful runtime controls make it an ideal choice for any modern frontend project.</p>
+
+    <p class="highlight">Ready to streamline your debugging workflow? Give `debug-frontend` a try!</p>
+
+    <p>Find the full source code and more details on GitHub: <a href="https://github.com/javimosch/debug-frontend">github.com/javimosch/debug-frontend</a></p>
+</body>
+</html>
