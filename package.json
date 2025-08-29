@@ -7,8 +7,8 @@
   "scripts": {
     "test": "npx serve",
     "build": "npm run build:esm && npm run build:iife",
-    "build:esm": "bun build index.js --outfile=dist/index.mjs --target=browser",
-    "build:iife": "bun build index.js --outfile=dist/index.js --target=browser --format=iife"
+    "build:esm": "bun build index.js --outfile=dist/index.mjs --target=browser --minify",
+    "build:iife": "bun build index.js --outfile=dist/index.js --target=browser --format=iife --minify"
   },
   "author": "<javimosch/notraces> arancibiajav@gmail.com",
   "license": "ISC",
