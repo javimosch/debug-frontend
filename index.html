@@ -63,9 +63,9 @@
       Current <code>localStorage.debug</code> value: <span id="debug-value"></span>
     </div>
 
-    <h2>Basic Logging</h2>
+    <h2>Test All Features</h2>
     <div class="button-group">
-        <button onclick="runTests()">Run All Log Levels</button>
+        <button onclick="runAllTests()">Run All Tests</button>
     </div>
 
     <h2>Configuration</h2>
@@ -75,13 +75,6 @@
         <button onclick="updateDebugValue('custom:*')">Enable custom:*</button>
         <button onclick="updateDebugValue('app:*,custom:*')">Enable app:* and custom:*</button>
         <button onclick="updateDebugValue('')">Disable All</button>
-    </div>
-
-    <h2>Advanced</h2>
-    <div class="button-group">
-        <button onclick="testTrackTime()">Test console.trackTime()</button>
-        <button onclick="testReplicate()">Test console.replicate()</button>
-        <button onclick="showAvailableNamespaces()">Show Available Namespaces</button>
         <button onclick="testRevertConsoleOverride()">Revert Console Override</button>
     </div>
 
@@ -105,7 +98,11 @@
       document.getElementById('debug-value').textContent = localStorage.getItem('debug') || '(not set)';
     }
 
-    function runTests() {
+    function runAllTests() {
+      console.log('--- Running All debug-frontend Tests ---');
+
+      // Basic Logging
+      console.log('\n--- Testing Basic Logging ---');
       console.log("This is a console.log message, captured by debug('app:log')");
       console.info("This is a console.info message, captured by debug('app:info')");
       console.warn("This is a console.warn message, captured by debug('app:warn')");
@@ -114,44 +111,41 @@
       const customLogger = debug('custom:namespace');
       customLogger('This is a message from a custom namespace.');
 
-      window.testDebug();
-    }
+      // Test console.trackTime()
+      console.log('\n--- Testing console.trackTime() ---');
+      const tracker = console.trackTime('MyProcess');
+      setTimeout(() => {
+          tracker.stop();
+          console.log('console.trackTime(\'MyProcess\') stopped after 1 second.');
+      }, 1000);
 
-    function testTrackTime() {
-        const tracker = console.trackTime('MyProcess');
-        setTimeout(() => {
-            tracker.stop();
-        }, 1000);
-    }
-
-    function showAvailableNamespaces() {
-        const names = debug.getNames();
-        console.log('Available namespaces:', names);
-        alert('Available namespaces logged to console: ' + names.join(', '));
-    }
-
-    function testReplicate() {
+      // Test console.replicate()
+      console.log('\n--- Testing console.replicate() ---');
       const componentConsole = console.replicate('MyComponent');
       componentConsole.log('This is a log from MyComponent:log');
       componentConsole.info('This is an info from MyComponent:info');
       componentConsole.warn('This is a warning from MyComponent:warn');
       componentConsole.error('This is an error from MyComponent:error');
-      alert('Check console for logs from MyComponent namespace. Try enabling "app:MyComponent:*" in the Debug UI.');
-    }
+      console.log('Check console for logs from MyComponent namespace. Try enabling "app:MyComponent:*" in the Debug UI.');
 
-    window.runTests = runTests;
-    window.testTrackTime = testTrackTime;
-    window.showAvailableNamespaces = showAvailableNamespaces;
-    window.updateDebugValue = updateDebugValue;
-    window.testReplicate = testReplicate;
+      // Show Available Namespaces
+      console.log('\n--- Testing Available Namespaces ---');
+      const names = debug.getNames();
+      console.log('Available namespaces:', names);
+      console.log('Available namespaces logged to console: ' + names.join(', '));
+
+      console.log('\n--- All debug-frontend Tests Finished ---');
+    }
 
     function testRevertConsoleOverride() {
       debug.revertConsoleOverride();
       console.log('Console override reverted. Subsequent console.log calls will use the native console.');
-      alert('Console override reverted. Check console for confirmation.');
+      console.log('Console override reverted. Check console for confirmation.');
     }
 
-    window.testRevertConsoleOverride = testRevertConsoleOverride;
+    window.updateDebugValue = updateDebugValue;
+    window.runAllTests = runAllTests; // Expose the new function globally
+    window.testRevertConsoleOverride = testRevertConsoleOverride; // Expose testRevertConsoleOverride globally
 
     // Initial status update
     updateStatus();
