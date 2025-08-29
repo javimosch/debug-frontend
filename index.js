@@ -236,6 +236,10 @@ function humanize(diff) {
   return `${(diff / 60000).toFixed(1)}m`
 }
 
+function revertConsoleOverride() {
+  window.console = originalConsole;
+}
+
 /**
  * Create debug logger function
  * @param {string} namespace - Debug namespace
@@ -443,6 +447,8 @@ debug.getAvailablePatterns = () => {
   return [...patterns].sort()
 }
 
+debug.revertConsoleOverride = revertConsoleOverride;
+
 // Add debug logging for troubleshooting
 /* originalConsole.log('Debug: initialized');
 originalConsole.log('Debug: loaded namespaces:', loadNamespaces());
@@ -504,15 +510,17 @@ window.debug = debug
 debug.install()
 
 function install() {
-  const originalConsole = window.console
+  const _originalConsole = window.console
   let newConsole = null
 
   overrideConsoleWithDebug()
   bindKeyShorcut()
 
+  
+
   function overrideConsoleWithDebug() {
     newConsole = {
-      ...originalConsole,
+      ..._originalConsole,
       debug: debug('app:debug'),
       log: debug('app:log'),
       info: debug('app:info'),
@@ -535,7 +543,7 @@ function install() {
     const fullNamespace = prefix + namespace
 
     const newConsoleWithNamespace = {
-      ...originalConsole,
+      ..._originalConsole,
       debug: debug(fullNamespace + ':debug'),
       log: debug(fullNamespace + ':log'),
       info: debug(fullNamespace + ':info'),

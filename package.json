@@ -1,5 +1,5 @@
 {
-  "name": "debug-browser",
+  "name": "debug-frontend",
   "version": "1.0.0",
   "description": "An alternative pure JS implementation of npm debug library for browser",
   "main": "dist/index.js",
@@ -14,6 +14,6 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git@github.com:javimosch/debug-browser.git"
+    "url": "git@github.com:javimosch/debug-frontend.git"
   }
 }

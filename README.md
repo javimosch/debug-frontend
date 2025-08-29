@@ -1,4 +1,4 @@
-# debug-browser
+# debug-frontend
 
 Alternative pure JS implementation of npm debug library for browser.
 
@@ -8,6 +8,7 @@ This library provides a simple and effective way to control debug logging in you
 
 *   **Lightweight and dependency-free:** Pure JavaScript, no external libraries needed.
 *   **Namespace-based logging:** Enable and disable logs for specific parts of your application.
+*   **Automatic Console Overriding:** Automatically overrides the native `console` methods to provide namespaced logging out of the box.
 *   **Runtime UI:** A built-in UI to control debug namespaces at runtime, triggered by a keyboard shortcut (Shift+D+Enter) or by calling `console.configure()`.
 *   **localStorage control:** Control debug logs from the browser's developer console.
 *   **Color-coded output:** Namespaces are automatically assigned colors for easy identification.
@@ -16,7 +17,7 @@ This library provides a simple and effective way to control debug logging in you
 ## Installation
 
 ```bash
-npm install debug-browser
+npm install debug-frontend
 ```
 
 ## Usage
@@ -24,7 +25,7 @@ npm install debug-browser
 ### ES Module (Recommended)
 
 ```javascript
-import debug from 'debug-browser';
+import debug from 'debug-frontend';
 
 const log = debug('app:log');
 log('This is a log message');
@@ -35,7 +36,7 @@ log('This is a log message');
 Include the script in your HTML:
 
 ```html
-<script src="node_modules/debug-browser/dist/index.js"></script>
+<script src="node_modules/debug-frontend/dist/index.js"></script>
 ```
 
 Then you can use the `debug` function globally:
@@ -57,6 +58,45 @@ There are two ways to control which debug logs are shown:
 
 2.  **Using the Runtime UI:** Press `Shift+D+Enter` in your browser to bring up the debug configuration UI. This allows you to toggle namespaces on and off without having to manually edit `localStorage`.
 
+## Advanced Usage
+
+### Overriding the Native Console
+
+By default, `debug-frontend` will override the native `console` methods (`log`, `info`, `warn`, `error`, etc.) with its own namespaced versions. This means that all of your existing `console.log()` calls will automatically become part of the `debug-frontend` system, under the `app` namespace (e.g., `app:log`, `app:info`).
+
+This is useful for quickly adding debug capabilities to an existing project without having to change all of your logging statements.
+
+### Creating Namespaced Consoles with `replicate()`
+
+For more granular control, especially in larger applications or component-based libraries, you can use the `console.replicate()` method to create a new `console` object with its own namespace.
+
+This is useful for creating a logger that is specific to a particular component or module.
+
+```javascript
+// Create a new console object for your component
+const myComponentConsole = console.replicate('MyComponent');
+
+// Now you can use the new console object to log messages
+myComponentConsole.log('This is a log message from MyComponent');
+myComponentConsole.warn('This is a warning from MyComponent');
+
+// These logs will have the namespaces 'app:MyComponent:log' and 'app:MyComponent:warn' respectively.
+```
+
+### Reverting Console Override
+
+If you need to restore the original native `console` object after `debug-frontend` has overridden it, you can use the `debug.revertConsoleOverride()` method.
+
+```javascript
+import debug from 'debug-frontend';
+
+// Revert the console override
+debug.revertConsoleOverride();
+
+// Now, subsequent console.log calls will use the browser's native console
+console.log('This message goes to the native console.');
+```
+
 ## Configuration
 
 ### Disabling the Runtime UI
@@ -64,7 +104,7 @@ There are two ways to control which debug logs are shown:
 In a production environment, you may want to disable the keyboard shortcut for the runtime UI. You can do this by setting the `disableShorcut` flag on the `debug` object:
 
 ```javascript
-import debug from 'debug-browser';
+import debug from 'debug-frontend';
 
 debug.disableShorcut = true;
 ```
