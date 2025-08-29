@@ -6,7 +6,7 @@ This library provides a simple and effective way to control debug logging in you
 
 ## Features
 
-*   **Lightweight and dependency-free:** Pure JavaScript, no external libraries needed.
+*   **Lightweight and Zero-Dependency:** Built with pure JavaScript, `debug-frontend` has no external dependencies. This ensures a minimal bundle size and eliminates concerns about third-party vulnerabilities, making it a secure and efficient choice for your projects.
 *   **Namespace-based logging:** Enable and disable logs for specific parts of your application.
 *   **Automatic Console Overriding:** Automatically overrides the native `console` methods to provide namespaced logging out of the box.
 *   **Runtime UI:** A built-in UI to control debug namespaces at runtime, triggered by a keyboard shortcut (Shift+D+Enter) or by calling `console.configure()`.
@@ -116,6 +116,20 @@ To build the project from source, run the following command. This will generate 
 ```bash
 npm install
 npm run build
+```
+
+### Bundle Sizes
+
+The raw minified sizes of the bundles are approximately 12KB each. When served with Gzip compression (common on web servers), the actual transfer sizes are significantly smaller:
+
+*   **ES Module (`dist/index.mjs`):** ~4.0KB (gzipped)
+*   **UMD (`dist/index.js`):** ~8.0KB (gzipped)
+
+For even smaller sizes, consider Brotli compression. You can test Brotli compression on your system using the `brotli` command-line tool (if installed):
+
+```bash
+brotli dist/index.mjs
+brotli dist/index.js
 ```
 
 ## Testing
