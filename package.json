@@ -1,6 +1,6 @@
 {
   "name": "debug-frontend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An alternative pure JS implementation of npm debug library for browser",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
