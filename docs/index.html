@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>debug-frontend Documentation</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-100 text-gray-900 font-sans">
+        <div class="flex h-screen">
+    <!-- Sidebar -->
+    <nav class="w-64 bg-gray-800 text-white p-6 space-y-4 flex-shrink-0">
+        <h2 class="text-2xl font-bold mb-4">Documentation</h2>
+        <ul class="space-y-2">
+            <li><a href="#introduction" class="block hover:text-blue-400">Introduction</a></li>
+            
+            <li><a href="#features" class="block hover:text-blue-400">Features</a></li>
+            <li><a href="#installation" class="block hover:text-blue-400">Installation</a></li>
+            <li><a href="#usage" class="block hover:text-blue-400">Usage</a></li>
+            <li><a href="#controlling-logs" class="block hover:text-blue-400">Controlling Logs</a></li>
+            <li><a href="#advanced-usage" class="block hover:text-blue-400">Advanced Usage</a></li>
+            <li><a href="#configuration" class="block hover:text-blue-400">Configuration</a></li>
+            <li><a href="#building" class="block hover:text-blue-400">Building</a></li>
+            <li><a href="#testing" class="block hover:text-blue-400">Testing</a></li>
+            <li><a href="#license" class="block hover:text-blue-400">License</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto p-8">
+        <div id="introduction" class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20 px-8 text-center rounded-lg shadow-2xl mb-10">
+            <h1 class="text-6xl font-extrabold mb-4 leading-tight">debug-frontend</h1>
+            <p class="text-2xl mb-8 max-w-3xl mx-auto opacity-90">
+                Lightweight, Zero-Dependency JavaScript Debugging for Your Browser.
+            </p>
+            <a href="https://github.com/javimosch/debug-frontend" target="_blank" rel="noopener noreferrer" class="btn inline-block bg-white text-blue-700 px-10 py-4 rounded-full text-lg font-semibold hover:bg-blue-100 transition-all duration-300 ease-in-out shadow-lg">
+                Get Started Now
+            </a>
+
+            <div class="mt-10 p-8 bg-white text-gray-800 rounded-lg shadow-lg">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 border-b-2 border-blue-200 pb-3">Why debug-frontend?</h2>
+                <p class="mb-4 leading-relaxed text-gray-700">
+                    As developers, we often face common pain points when debugging JavaScript applications in the browser:
+                </p>
+                <ul class="list-disc list-inside mb-4 pl-5 space-y-1">
+                    <li><strong>Messy Console Output:</strong> Logs from different parts of your application, or even third-party libraries, can quickly clutter your console, making it hard to find relevant information.</li>
+                    <li><strong>Lack of Granularity:</strong> Toggling specific debug messages on and off often requires modifying code or manually setting `localStorage` flags, interrupting your workflow.</li>
+                    <li><strong>Security Concerns:</strong> Leaving extensive debug logs in production code can expose sensitive information or create performance overhead.</li>
+                    <li><strong>Inconsistent Logging:</strong> Different developers or teams might use varying logging practices, leading to a fragmented debugging experience.</li>
+                </ul>
+                <p class="mb-4 leading-relaxed text-gray-700">
+                    <code>debug-frontend</code> addresses these challenges by providing a structured, efficient, and interactive debugging solution tailored for browser environments.
+                </p>
+            </div>
+        </div>
+
+
+
+
+
+        <div id="features" class="container max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-lg my-10 hidden">
+            <h2 class="text-3xl font-bold text-gray-800 mt-10 mb-4 border-b-2 border-blue-200 pb-3">Features</h2>
+            <ul class="list-disc list-inside mb-4 pl-5 space-y-1">
+                <li>
+                    <strong>Lightweight and Zero-Dependency:</strong> Built with pure JavaScript, <code>debug-frontend</code> has no external dependencies. This ensures a minimal bundle size and eliminates concerns about third-party vulnerabilities, making it a secure and efficient choice for your projects.
+                </li>
+                <li>
+                    <strong>Namespace-Based Logging:</strong> Organize your logs by feature, component, or module. Enable only what you need, when you need it.
+                </li>
+                <li>
+                    <strong>Automatic Console Overriding:</strong> Seamlessly integrates with your existing <code>console.log</code>, <code>console.info</code>, etc., automatically routing them through <code>debug-frontend</code>'s namespacing system.
+                </li>
+                <li>
+                    <strong>Interactive Runtime UI:</strong> A built-in, accessible UI allows you to enable/disable debug namespaces on the fly directly in your browser, without touching code or <code>localStorage</code> manually.
+                </li>
+                <li>
+                    <strong>Color-Coded Output:</strong> Logs are automatically colored by namespace, making it easier to distinguish different types of output at a glance.
+                </li>
+                <li>
+                    <strong>UMD and ES Module builds:</strong> Use it in any project, modern or legacy.
+                </li>
+            </ul>
+        </div>
+
+        <div id="installation" class="container max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-lg my-10 hidden">
+            <h2 class="text-3xl font-bold text-gray-800 mt-10 mb-4 border-b-2 border-blue-200 pb-3">Installation</h2>
+            <pre class="bg-gray-800 text-gray-100 p-5 rounded-lg overflow-x-auto mb-6 shadow-inner"><code>npm install debug-frontend</code></pre>
+        </div>
+
+        <div id="usage" class="container max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-lg my-10 hidden">
+            <h2 class="text-3xl font-bold text-gray-800 mt-10 mb-4 border-b-2 border-blue-200 pb-3">Usage</h2>
+            <h3 class="text-2xl font-semibold text-blue-600 mt-8 mb-3">ES Module (Recommended)</h3>
+            <pre class="bg-gray-800 text-gray-100 p-5 rounded-lg overflow-x-auto mb-6 shadow-inner"><code>import debug from 'debug-frontend';
+
+const log = debug('app:main');
+const dataLog = debug('app:data');
+
+log('Application started.');
+dataLog('Fetched user data:', { id: 1, name: 'Alice' });
+</code></pre>
+
+            <h3 class="text-2xl font-semibold text-blue-600 mt-8 mb-3">UMD (for older browsers or non-module setups)</h3>
+            <p class="mb-4 leading-relaxed text-gray-700">Include the script in your HTML:</p>
+            <pre class="bg-gray-800 text-gray-100 p-5 rounded-lg overflow-x-auto mb-6 shadow-inner"><code>&lt;script src="node_modules/debug-frontend/dist/index.js"&gt;&lt;/script&gt;</code></pre>
+            <p class="mb-4 leading-relaxed text-gray-700">Then you can use the <code>debug</code> function globally:</p>
+            <pre class="bg-gray-800 text-gray-100 p-5 rounded-lg overflow-x-auto mb-6 shadow-inner"><code>const log = debug('app:log');
+log('This is a log message');
+</code></pre>
+        </div>
+
+        <div id="controlling-logs" class="container max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-lg my-10 hidden">
+            <h2 class="text-3xl font-bold text-gray-800 mt-10 mb-4 border-b-2 border-blue-200 pb-3">Controlling Logs</h2>
+            <p class="mb-4 leading-relaxed text-gray-700">There are two primary ways to control log visibility:</p>
+            <ol class="list-decimal list-inside mb-4 pl-5 space-y-1">
+                <li>
+                    <strong>Using <code>localStorage</code>:</strong> Open your browser's developer console and set the <code>localStorage.debug</code> item:
+                    <pre class="bg-gray-800 text-gray-100 p-5 rounded-lg overflow-x-auto mb-6 shadow-inner"><code>localStorage.debug = 'app:*'; // Enable all 'app' related logs
+localStorage.debug = 'app:main,-app:data'; // Enable app:main, disable app:data
+</code></pre>
+                </li>
+                <li>
+                    <strong>Using the Runtime UI:</strong> Press <code>Shift + D + Enter</code> in your browser. A modal will appear, allowing you to visually select and toggle namespaces. This is incredibly powerful for live debugging sessions.
+                    <p class="mb-4 leading-relaxed text-gray-700">You can also programmatically open this UI by calling <code>console.configure()</code>.</p>
+                </li>
+            </ol>
+        </div>
+
+        <div id="advanced-usage" class="container max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-lg my-10 hidden">
+            <h2 class="text-3xl font-bold text-gray-800 mt-10 mb-4 border-b-2 border-blue-200 pb-3">Advanced Usage</h2>
+            <h3 class="text-2xl font-semibold text-blue-600 mt-8 mb-3">Overriding the Native Console</h3>
+            <p class="mb-4 leading-relaxed text-gray-700">
+                By default, <code>debug-frontend</code> will override the native <code>console</code> methods (<code>log</code>, <code>info</code>, <code>warn</code>, <code>error</code>, etc.) with its own namespaced versions. This means that all of your existing <code>console.log()</code> calls will automatically become part of the <code>debug-frontend</code> system, under the <code>app</code> namespace (e.g., <code>app:log</code>, <code>app:info</code>).
+            </p>
+            <p class="mb-4 leading-relaxed text-gray-700">
+                This is useful for quickly adding debug capabilities to an existing project without having to change all of your logging statements.
+            </p>
+
+            <h3 class="text-2xl font-semibold text-blue-600 mt-8 mb-3">Creating Namespaced Consoles with <code>replicate()</code></h3>
+            <p class="mb-4 leading-relaxed text-gray-700">
+                For more granular control, especially in larger applications or component-based libraries, you can use the <code>console.replicate()</code> method to create a new <code>console</code> object with its own namespace.
+            </p>
+            <pre class="bg-gray-800 text-gray-100 p-5 rounded-lg overflow-x-auto mb-6 shadow-inner"><code>// Create a new console object for your component
+const myComponentConsole = console.replicate('MyComponent');
+
+// Now you can use the new console object to log messages
+myComponentConsole.log('This is a log message from MyComponent');
+myComponentConsole.warn('This is a warning from MyComponent');
+
+// These logs will have the namespaces 'app:MyComponent:log' and 'app:MyComponent:warn' respectively.
+</code></pre>
+
+            <h3 class="text-2xl font-semibold text-blue-600 mt-8 mb-3">Reverting Console Override</h3>
+            <p class="mb-4 leading-relaxed text-gray-700">
+                If you need to restore the original native <code>console</code> object after <code>debug-frontend</code> has overridden it, you can use the <code>debug.revertConsoleOverride()</code> method.
+            </p>
+            <pre class="bg-gray-800 text-gray-100 p-5 rounded-lg overflow-x-auto mb-6 shadow-inner"><code>import debug from 'debug-frontend';
+
+// Revert the console override
+debug.revertConsoleOverride();
+
+// Now, subsequent console.log calls will use the browser's native console
+console.log('This message goes to the native console.');
+</code></pre>
+        </div>
+
+        <div id="configuration" class="container max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-lg my-10 hidden">
+            <h2 class="text-3xl font-bold text-gray-800 mt-10 mb-4 border-b-2 border-blue-200 pb-3">Configuration</h2>
+            <h3 class="text-2xl font-semibold text-blue-600 mt-8 mb-3">Disabling the Runtime UI</h3>
+            <p class="mb-4 leading-relaxed text-gray-700">
+                In a production environment, you may want to disable the keyboard shortcut for the runtime UI. You can do this by setting the <code>disableShorcut</code> flag on the <code>debug</code> object:
+            </p>
+            <pre class="bg-gray-800 text-gray-100 p-5 rounded-lg overflow-x-auto mb-6 shadow-inner"><code>import debug from 'debug-frontend';
+
+debug.disableShorcut = true;
+</code></pre>
+        </div>
+
+        <div id="building" class="container max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-lg my-10 hidden">
+            <h2 class="text-3xl font-bold text-gray-800 mt-10 mb-4 border-b-2 border-blue-200 pb-3">Building</h2>
+            <p class="mb-4 leading-relaxed text-gray-700">
+                To build the project from source, run the following command. This will generate the UMD and ES Module builds in the <code>dist</code> directory.
+            </p>
+            <pre class="bg-gray-800 text-gray-100 p-5 rounded-lg overflow-x-auto mb-6 shadow-inner"><code>npm install
+npm run build
+</code></pre>
+
+            <h3 class="text-2xl font-semibold text-blue-600 mt-8 mb-3">Bundle Sizes</h3>
+            <p class="mb-4 leading-relaxed text-gray-700">
+                The raw minified sizes of the bundles are approximately 12KB each. When served with Gzip compression (common on web servers), the actual transfer sizes are significantly smaller:
+            </p>
+            <ul class="list-disc list-inside mb-4 pl-5 space-y-1">
+                <li>
+                    <strong>ES Module (<code class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-mono">dist/index.mjs</code>):</strong> ~4.0KB (gzipped)
+                </li>
+                <li>
+                    <strong>UMD (<code class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-mono">dist/index.js</code>):</strong> ~8.0KB (gzipped)
+                </li>
+            </ul>
+            <p class="mb-4 leading-relaxed text-gray-700">
+                For even smaller sizes, consider Brotli compression. You can test Brotli compression on your system using the <code>brotli</code> command-line tool (if installed):
+            </p>
+            <pre class="bg-gray-800 text-gray-100 p-5 rounded-lg overflow-x-auto mb-6 shadow-inner"><code>brotli dist/index.mjs
+brotli dist/index.js
+</code></pre>
+        </div>
+
+        <div id="testing" class="container max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-lg my-10 hidden">
+            <h2 class="text-3xl font-bold text-gray-800 mt-10 mb-4 border-b-2 border-blue-200 pb-3">Testing</h2>
+            <p class="mb-4 leading-relaxed text-gray-700">
+                To test the library, you can use the provided test pages. First, start the server:
+            </p>
+            <pre class="bg-gray-800 text-gray-100 p-5 rounded-lg overflow-x-auto mb-6 shadow-inner"><code>npm run test
+</code></pre>
+            <p class="mb-4 leading-relaxed text-gray-700">
+                Then, open one of the following pages in your browser:
+            </p>
+            <ul class="list-disc list-inside mb-4 pl-5 space-y-1">
+                <li>
+                    <a href="/index.html" class="text-blue-600 hover:underline">http://localhost:3000/index.html</a> (for the ES Module build)
+                </li>
+                <li>
+                    <a href="/index-umd.html" class="text-blue-600 hover:underline">http://localhost:3000/index-umd.html</a> (for the UMD build)
+                </li>
+            </ul>
+        </div>
+
+        <div id="license" class="container max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-lg my-10 hidden">
+            <h2 class="text-3xl font-bold text-gray-800 mt-10 mb-4 border-b-2 border-blue-200 pb-3">License</h2>
+            <p class="mb-4 leading-relaxed text-gray-700">This project is licensed under the ISC License.</p>
+        </div>
+    </main>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const sidebarLinks = document.querySelectorAll('nav a');
+        const sections = document.querySelectorAll('main > div');
+
+        function showSection(id) {
+            sections.forEach(section => {
+                if (section.id === id) {
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+        }
+
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = e.target.getAttribute('href').substring(1);
+                showSection(targetId);
+                history.pushState(null, '', e.target.href); // Update URL hash
+            });
+        });
+
+        // Show initial section based on URL hash or default to introduction
+        const initialSectionId = window.location.hash ? window.location.hash.substring(1) : 'introduction';
+        showSection(initialSectionId);
+    });
+</script>
+    </body>
+</html>
