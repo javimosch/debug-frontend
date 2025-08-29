@@ -14,6 +14,8 @@ This library provides a simple and effective way to control debug logging in you
 *   **Color-coded output:** Namespaces are automatically assigned colors for easy identification.
 *   **UMD and ES Module builds:** Use it in any project, modern or legacy.
 
+![debug-frontend demo](docs/demo.gif)
+
 ## Installation
 
 ```bash
